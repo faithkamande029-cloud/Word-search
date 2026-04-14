@@ -1,11 +1,9 @@
 const baseUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
 const definition = document.querySelector(".definition");
-const textToSpeech = document.querySelector("text-to-speech");
 const button = document.getElementById("s-btn");
 const clearHistory = document.getElementById("clear-history");
 const searchStore = document.getElementById("search-store");
-const audio = document.getElementById('sound')
 
 
 button.addEventListener('click', (event) => {
@@ -20,7 +18,7 @@ button.addEventListener('click', (event) => {
         const html = ` 
             <div class="def">
                 <h4>${searchWord}</h4>
-                <button id="sound" onClick="textToSpeech()">
+                <button id="sound" >
                     <span class="material-symbols-outlined">text_to_speech</span>
                 </button>
                 </div>
@@ -45,21 +43,61 @@ button.addEventListener('click', (event) => {
         `;
         definition.innerHTML = html;
 
+        const audio = document.getElementById('sound');
+
+        audio.addEventListener("click", () =>{
+            let audioLink = data[0].phonetics[0].audio;
+
+            if (audioLink){
+                const speechAudio = new Audio(audioLink);
+                speechAudio.play();
+            }else{
+                alert("No audio available")
+            }
+        });
         
         
     })
-    
-    .catch(error => {
-        console.log(error);
-        console.log(error.message)
+    .catch(error => {console.error("Faaah.....Word not Found!",error);
     });
+    saveIn();
+    savedWord();
 });
 
-textToSpeech.addEventListener("click", () => {
-    const audioLink = ( `https:${data[0].phonetics[0].audio}`);
-    const audio = new Audio(audioLink);
-    audio.play();
-})
+function saveIn (){
+    let history = document.getElementById("search-store").value;
+
+    let storedWords = JSON.parse(localStorage.getItem("search")) || [];
+
+    if (history) {
+        storedWords.push(history);
+        localStorage.setItem("word", JSON.stringify(history));
+        alert("Search Saved!");
+    }
+}
+function savedWord () {
+    let saved = JSON.parse(localStorage.getItem("word") || []);
+
+    const list = document.getElementById("history-list");
+
+    list.innerHTML = "";
+    
+
+    if (saved.length > 0){
+        saved.forEach(element => {
+            const li = document.createElement("li");
+            li.textContent = (history[i]);
+            list.appendChild(li);
+        });
+
+    } else {
+        list.innerText = "No such word found";
+    }
+};
 
 
-// const history = {};
+// clearHistory.addEventListener("click",() =>{
+    
+//     localStorage.clear("search")
+//     alert("History cleared")
+// });

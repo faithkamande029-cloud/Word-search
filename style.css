@@ -118,6 +118,10 @@ a:hover {
     padding: 10px;
     box-shadow: 2px 2px 1px 1px gre;
 }
+.history li {
+    width: 100px;
+    height: 100px;
+}
 
 footer{
     display: flex;
