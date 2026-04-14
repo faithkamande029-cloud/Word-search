@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wordly</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+     rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=text_to_speech" />
 </head>
 <body>
     <header>
@@ -15,7 +18,7 @@
             <nav>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><span class="material-icons-outline">🔍</span><a href="#">Word Search</a></li>
+                    <li><a href="#definition">Word Search</a></li>
                     <li><a href="#">About</a></li>
                 </ul>
                 
@@ -23,16 +26,22 @@
         </div>
     </header>
     <section class="word-search">
-
+        <audio id="tex-to-speech"></audio>
         <div id="search-bar" class="container">
             <div class="search-space">
-                <button type="button">Search</button>
+                <form class="search-button">
+                    <input type="text" placeholder="Search" id="search-store", required/>
+                    <button id="button">Search</button>
+                </form>                
             </div>
 
-            <div class="words">
-                <h4>Sample</h4>
-            </div>
 
+        </div>
+    
+    </section>
+    <section id="history" class="history">
+        <div>
+            <button id="clearButton">Clear History</button>
         </div>
     </section>
     <footer>

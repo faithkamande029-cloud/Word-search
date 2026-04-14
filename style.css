@@ -1,3 +1,6 @@
+:root{
+    --font-lobster: "Lobster Two", sans-serif;
+}
 *, 
 ::after, 
 ::before {
@@ -5,7 +8,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 header {
     display: flex;
     justify-content: space-between;
@@ -13,6 +15,9 @@ header {
     margin: 2px;
     background-color: rgba(191, 191, 255, 0.783);
     padding: 15px;
+}
+header h3{
+    font-family: var(--font-lobster);
 }
 .navigation ul {
     list-style: none;
@@ -35,7 +40,8 @@ a:hover {
     padding: 20px;
     display: flex;
     justify-content: center;
-    align-content: center;     
+    align-content: center; 
+        
 }
 .container {
     width: 500px;
@@ -43,19 +49,79 @@ a:hover {
     background-color: rgb(237, 237, 255);
     border: 1px solid black; 
     padding: 10px;
+    box-shadow: 2px 2px 2px 1px grey;
 }
 
 .search-space {
+    
     display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-    margin: 10px; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px; 
     background-color: rgb(188, 188, 254);   
 }
-footer{
+.search-button button{
+    padding: 4px;
+    box-shadow: 1px 1px 1px black;
+}
+.search-button button:hover{
+    cursor: pointer;
+}
+.search-button input{
+    width: 350px;
+    padding: 4px;
+    flex:  1;
+    margin-right: 20px;
+   
+}
+.definition{
+    padding: 20px; 
+}
+.def{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+}
+.definition h4 {
+    font-size: Xx-large;
+}
+.definition button {
+    border: none;
+    outline: none;
+}
+.definition button:hover{
+    cursor: pointer;
+    box-shadow: 2px 2px 1px 1px rgb(54, 101, 113);
+}
+.noun {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    gap: 5px;
+    opacity: 0.6;
+}
+.define {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.translate {
+    padding: 5px;
+    background-color: rgba(170, 189, 236, 0.215);
+    border:  1px solid;  
+    text-align: center;
+}
+.history{
+    padding: 20px;
+}
+.history button{
+    padding: 10px;
+    box-shadow: 2px 2px 1px 1px gre;
+}
+
+footer{
+    display: flex;
+    justify-content: space-evenly;
     background-color: rgb(188, 188, 255);
     padding: 10px;  
     color: rgb(4, 54, 84);  
