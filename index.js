@@ -1,11 +1,11 @@
 const baseUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
 const definition = document.querySelector(".definition");
-const textToSpeech = document.getElementById("text-to-speech");
+const textToSpeech = document.querySelector("text-to-speech");
 const button = document.getElementById("s-btn");
 const clearHistory = document.getElementById("clear-history");
 const searchStore = document.getElementById("search-store");
-// const searchStore = document.getElementById("search-store")
+const audio = document.getElementById('sound')
 
 
 button.addEventListener('click', (event) => {
@@ -13,8 +13,6 @@ button.addEventListener('click', (event) => {
     event.preventDefault(); 
 
     let searchWord = searchStore.value;
-    console.log(searchWord);
-
 
     fetch(`${baseUrl}${searchWord}`)
     .then(response => response.json())   
@@ -22,7 +20,9 @@ button.addEventListener('click', (event) => {
         const html = ` 
             <div class="def">
                 <h4>${searchWord}</h4>
-                <button><span class="material-symbols-outlined">text_to_speech</span></button>
+                <button id="sound" onClick="textToSpeech()">
+                    <span class="material-symbols-outlined">text_to_speech</span>
+                </button>
                 </div>
                 <div class="define">
                 <div class="noun">
@@ -40,14 +40,26 @@ button.addEventListener('click', (event) => {
                 <div class="translate">
                     <p><strong>Swahili</strong>: ${searchWord}</p>
                 </div>
-            </div>        
+            </div> 
+                  
         `;
         definition.innerHTML = html;
-        sound.setAttribute(`"src", https:${data[0].phonetics[0].audio}`)
-        console.log(sound)
+
+        
+        
     })
     
-    .catch(error => console.error('Error, Word not found', error));
+    .catch(error => {
+        console.log(error);
+        console.log(error.message)
+    });
+});
+
+textToSpeech.addEventListener("click", () => {
+    const audioLink = ( `https:${data[0].phonetics[0].audio}`);
+    const audio = new Audio(audioLink);
+    audio.play();
 })
 
-const history = {};
+
+// const history = {};
