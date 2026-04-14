@@ -2,26 +2,35 @@ const baseUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
 const definition = document.querySelector(".def");
 const textToSpeech = document.getElementById("text-to-speech");
-const searchButton = document.getElementById("button");
+const button = document.getElementById("s-btn");
 const clearHistory = document.getElementById("clear-history");
-const storeSearch = document.getElementById("search-store");
+const searchStore = document.getElementById("search-store");
 // const searchStore = document.getElementById("search-store")
+
 
 const history = {};
 
-searchButton.addEventListener('click', (event) => {
+button.addEventListener('click', (event) => {
     // prevents page from automaticly reloading
     event.preventDefault(); 
 
-    let storeSearch = storeSearch.value;
+    let searchWord = searchStore.value;
+    console.log(searchWord);
 
-    fetch(`${baseUrl}${storeSearch}`)
-    .then(response => response.json())
+
+    fetch(`${baseUrl}${searchWord}`)
+    .then(response => {
+        if(!response.ok){
+            throw new Error("Word not found")
+        }
+        return response.json();
+
+    })
     .then(data => {
-        definition.innerHTML = `
+        const html = `
                   <div id= "definition" class="definition">
                 <div class="def">
-                    <h4>${storeSearch}</h4>
+                    <h4>${searchWord}</h4>
                     <button><span class="material-symbols-outlined">text_to_speech</span></button>
                 </div>
                 <div class="define">
@@ -44,27 +53,29 @@ searchButton.addEventListener('click', (event) => {
                 
             </div>
         `;
+        definition.innerHTML = html;
     })
-    .catch(error => console.error("Word not found", error));
+    
+    .catch(error => console.error(error.message));
 
-    const searchArrays = Array.prototype.slice.call(event.target.elements);
+    // const searchArrays = Array.prototype.slice.call(event.target.elements);
 
-    searchArrays.forEach((element) => {
+    // searchArrays.forEach((element) => {
 
-        if (element.name) {
-            history[element.name] = element.value;
-        }
+    //     if (element.name) {
+    //         history[element.name] = element.value;
+    //     }
         
-    });
+    // });
 
-    localStorage.setItem('history', JSON.stringify(history));
+    // localStorage.setItem('history', JSON.stringify(history));
 })
-// storeSearch.addEventListener("click", searchArrays);
+storeSearch.addEventListener("click", searchArrays);
 
-// 
-// clearHistory.addEventListener('click', (event) => {
-//     event.preventDefault();
 
-//     form.reset();
-// })
-// clearHistory(history)
+clearHistory.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    form.reset();
+})
+clearHistory(history)
