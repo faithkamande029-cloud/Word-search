@@ -3,7 +3,10 @@ const baseUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 const definition = document.querySelector(".definition");
 const button = document.getElementById("s-btn");
 const clearHistory = document.getElementById("clear-history");
-const searchStore = document.getElementById("search-store");
+const searchStore = document.getElementById("search-store"), 
+    h2 = document.querySelector("h2");
+
+h2.innerHTML = localStorage.getItem("value")
 
 
 button.addEventListener('click', (event) => {
@@ -25,7 +28,7 @@ button.addEventListener('click', (event) => {
                 <div class="define">
                 <div class="noun">
                     <p>${data[0].meanings[0].partOfSpeech}</p>
-                    <p>/${data[0].phonetic}/</p>
+                    <p>/${data[0].phonetic || "Pronunciation not found"}/</p>
                 </div>
                 <div class="defined-word">
                     <p class="def-word">
@@ -33,16 +36,18 @@ button.addEventListener('click', (event) => {
                     </p>
                 </div>
                 <div class="context">
-                    <strong>Sentence: </strong><p>${data[0].meanings[0].definitions[0].example}</p>
+                    <strong>Sentence: </strong><p>${data[0].meanings?.[0]?.definitions[0].example || "Example is unavailable"}</p>
                 </div>
                 <div class="translate">
-                    <p><strong>Swahili</strong>: ${searchWord}</p>
+                    <p><strong>Synonyms</strong>: ${data[0].meanings?.[2]?.synonyms[0] || "No synonyms available"}</p>
                 </div>
             </div> 
                   
         `;
         definition.innerHTML = html;
 
+
+        //event listener for the text to speech button
         const audio = document.getElementById('sound');
 
         audio.addEventListener("click", () =>{
@@ -50,54 +55,30 @@ button.addEventListener('click', (event) => {
 
             if (audioLink){
                 const speechAudio = new Audio(audioLink);
-                speechAudio.play();
+                speechAudio.play().catch(error =>clg(error));
             }else{
                 alert("No audio available")
             }
         });
         
-        
+        saveWordDisplay();
     })
-    .catch(error => {console.error("Faaah.....Word not Found!",error);
+    .catch(error => {console.error("Word not Found!",error);
     });
-    saveIn();
-    savedWord();
 });
 
-function saveIn (){
-    let history = document.getElementById("search-store").value;
 
-    let storedWords = JSON.parse(localStorage.getItem("search")) || [];
 
-    if (history) {
-        storedWords.push(history);
-        localStorage.setItem("word", JSON.stringify(history));
-        alert("Search Saved!");
-    }
+function saveWordDisplay () {
+    localStorage.setItem('value', searchStore.value);
+    h2.innerHTML = localStorage.getItem("value") || "";
 }
-function savedWord () {
-    let saved = JSON.parse(localStorage.getItem("word") || []);
 
-    const list = document.getElementById("history-list");
-
-    list.innerHTML = "";
+clearHistory.addEventListener("click",() => {
     
-
-    if (saved.length > 0){
-        saved.forEach(element => {
-            const li = document.createElement("li");
-            li.textContent = (history[i]);
-            list.appendChild(li);
-        });
-
-    } else {
-        list.innerText = "No such word found";
-    }
-};
-
-
-// clearHistory.addEventListener("click",() =>{
+    //clears one item after the other in local storage
+    localStorage.removeItem("word");
+    h2.innerHTML = "";
     
-//     localStorage.clear("search")
-//     alert("History cleared")
-// });
+    alert("History cleared")
+});
