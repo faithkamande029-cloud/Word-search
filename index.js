@@ -57,14 +57,14 @@ button.addEventListener('click', (event) => {
 
             if (audioLink){
                 const speechAudio = new Audio(audioLink);
-                speechAudio.play().catch(error =>clg(error));
+                speechAudio.play().catch(error => console.log(error));
             }else{
                 alert("No audio available")
             }
         });
         
         saveWordDisplay();
-        newRandom();
+        
         
     })
     .catch(error => 
@@ -82,7 +82,7 @@ clearHistory.addEventListener("click",(event) => {
     event.preventDefault();
     
     //clears one item after the other in local storage
-    localStorage.removeItem("word");
+    localStorage.removeItem("value");
     h2.innerHTML = "";
     
     alert("History cleared");
@@ -96,8 +96,9 @@ function getNewWord(){
     .then (data => {
         const word = data[0];
         const dataHtml = `
-         
-         <p>${word}</p>
+         <h5>Word of the day:</h5>
+         <p class="word-posted">${word}</p>
+         <button id="word-today">Get new word</button>
         `; 
         randomWord.innerHTML = dataHtml;        
     })
@@ -106,6 +107,6 @@ function getNewWord(){
     });
     
 }
-const newRandom = document.getElementById("word-today")
+document.getElementById("word-today")
     .addEventListener("click", getNewWord);
 
