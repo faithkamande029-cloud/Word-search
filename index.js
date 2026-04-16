@@ -1,6 +1,7 @@
 const baseUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
+const url =  "https://random-word-api.herokuapp.com/word?number=1";
 
-const definition = document.querySelector(".definition");
+const definition = document.querySelector("#definition");
 const button = document.getElementById("s-btn");
 const clearHistory = document.getElementById("clear-history");
 const searchStore = document.getElementById("search-store"), 
@@ -9,11 +10,12 @@ const searchStore = document.getElementById("search-store"),
 h2.innerHTML = localStorage.getItem("value")
 
 
+
 button.addEventListener('click', (event) => {
     // prevents page from automaticly reloading
-    event.preventDefault(); 
+    event.preventDefault();     
 
-    let searchWord = searchStore.value;
+    let searchWord = searchStore.value;    
 
     fetch(`${baseUrl}${searchWord}`)
     .then(response => response.json())   
@@ -38,7 +40,7 @@ button.addEventListener('click', (event) => {
                 <div class="context">
                     <strong>Sentence: </strong><p>${data[0].meanings?.[0]?.definitions[0].example || "Example is unavailable"}</p>
                 </div>
-                <div class="translate">
+                <div class="synonyms">
                     <p><strong>Synonyms</strong>: ${data[0].meanings?.[2]?.synonyms[0] || "No synonyms available"}</p>
                 </div>
             </div> 
@@ -62,11 +64,13 @@ button.addEventListener('click', (event) => {
         });
         
         saveWordDisplay();
+        newRandom();
+        
     })
-    .catch(error => {console.error("Word not Found!",error);
+    .catch(error => 
+        {console.error("Word not Found!",error);
     });
 });
-
 
 
 function saveWordDisplay () {
@@ -74,11 +78,34 @@ function saveWordDisplay () {
     h2.innerHTML = localStorage.getItem("value") || "";
 }
 
-clearHistory.addEventListener("click",() => {
+clearHistory.addEventListener("click",(event) => {
+    event.preventDefault();
     
     //clears one item after the other in local storage
     localStorage.removeItem("word");
     h2.innerHTML = "";
     
-    alert("History cleared")
+    alert("History cleared");
 });
+
+function getNewWord(){
+    const randomWord = document.getElementById("word-highlight");
+
+    fetch(url)
+    .then(response => response.json())
+    .then (data => {
+        const word = data[0];
+        const dataHtml = `
+         
+         <p>${word}</p>
+        `; 
+        randomWord.innerHTML = dataHtml;        
+    })
+    .catch(error => 
+        {console.error("Invalid!",error);
+    });
+    
+}
+const newRandom = document.getElementById("word-today")
+    .addEventListener("click", getNewWord);
+

@@ -9,7 +9,10 @@
     box-sizing: border-box;
 }
 body {
-    max-width: 1500px;
+    max-width: 1500px;   
+    background-image: url(graphic.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
     
 }
 header {
@@ -43,8 +46,8 @@ a:hover {
 }
 .word-search {  
     min-height: 60vh;
-    padding: 80px;
-    display: flex;
+    padding: 40px;
+    display: flex; 
     justify-content: center;
     align-content: center; 
         
@@ -52,7 +55,7 @@ a:hover {
 .container {
     width: 700px;
     height: 100%;
-    background-color: rgba(255, 227, 190, 0.783);
+    background-color: rgba(239, 217, 144, 0.463);
     border: 1px solid black; 
     padding: 40px;
     box-shadow: 2px 2px 2px 1px grey;
@@ -119,7 +122,7 @@ a:hover {
     gap: 30px;
 }
 
-.translate {
+.synonyms {
     padding: 5px;
     background-color: rgba(170, 189, 236, 0.215);
     border:  1px solid;  
@@ -140,6 +143,7 @@ a:hover {
     display: flex;
     flex-direction: column;
     gap: 20px;
+   
 }
 .history-div h2{
     border: 1px solid black;
@@ -148,7 +152,25 @@ a:hover {
     display: flex;
     justify-content: center;
     background-color: rgba(255, 227, 190, 0.783);
-    text-transform: capitalize;    
+    text-transform: capitalize;  
+    margin-bottom: 10px;  
+      
+}
+#display-history{
+    display: flex;
+}
+.word-highlight{
+    display: flex;
+    justify-content: center;
+    gap: 300px;
+    background-color: rgb(244, 203, 149);
+    padding: 10px;
+    width: 700px;
+    z-index: 20;
+}
+.word-highlight h5{
+    font-family: var(--font-lobster);
+    font-size: x-large;
 }
 footer{
     display: flex;
