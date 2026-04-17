@@ -144,41 +144,60 @@ a:hover {
    
 }
 .history-div h2{
-    border: 1px solid black;
-    width: 100px;
-    padding: 10px;
+    /* border: 1px solid black; */
+    width: 100px; 
     display: flex;
     justify-content: center;
-    background-color: rgba(255, 227, 190, 0.783);
-    text-transform: capitalize;  
-    margin-bottom: 3px;  
+    text-transform: capitalize;    
 
 }
-#display-history{
-    display: flex;
-}
+
 .word-highlight{
     display: flex;    
     gap: 100px;
     padding: 10px;
+    align-items: center;       
+    
+}
+.word-new{
+    background-color: rgba(255, 228, 196, 0.162);
+    width: 700px;      
     align-items: center;
-    width: 100%;
-    
-    
+    padding: 1px;
 }
 .word-highlight h5{
     font-family: var(--font-lobster);
     font-size: large;
-    background-color: rgba(191, 124, 36, 0.135);
+    /* background-color: rgba(191, 124, 36, 0.135); */
     padding: 10px;
+    float: left;
+    
+}
+
+.recent-search{
+    display: flex;
+    justify-content: first baseline;    
+    gap: 120px;
+    padding: 10px;
+    background-color: antiquewhite;
+    width: 700px;
+}
+.recent-search p {
+    font-family: var(--font-lobster);
+    font-size: large;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    float: left;
+    padding-left: 10px;
 }
 .word-posted{
-    font-size: x-large;
-    background-color: rgba(197, 121, 21, 0.267);
+    font-size: x-large;    
     padding: 10px;
-    color: rgb(0, 0, 0);
+    color: rgb(32, 16, 1);
     font-weight: bold;
-
+    display: flex;
+    gap: 5px;
 }
 
 footer{

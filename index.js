@@ -1,5 +1,5 @@
 const baseUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
-const url =  "https://random-word-api.herokuapp.com/word?number=1";
+const url =  "https://random-word-api.herokuapp.com/word?number=5";
 
 const definition = document.querySelector("#definition");
 const button = document.getElementById("s-btn");
@@ -8,7 +8,6 @@ const searchStore = document.getElementById("search-store"),
     h2 = document.querySelector("h2");
 
 h2.innerHTML = localStorage.getItem("value")
-
 
 
 button.addEventListener('click', (event) => {
@@ -29,7 +28,7 @@ button.addEventListener('click', (event) => {
                 </div>
                 <div class="define">
                 <div class="noun">
-                    <p>${data[0].meanings[0].partOfSpeech}</p>
+                    <p>${data[0].meanings[0].partOfSpeech || "part of speech not found"}</p>
                     <p>/${data[0].phonetic || "Pronunciation not found"}/</p>
                 </div>
                 <div class="defined-word">
