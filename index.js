@@ -17,8 +17,17 @@ button.addEventListener('click', (event) => {
     let searchWord = searchStore.value;    
 
     fetch(`${baseUrl}${searchWord}`)
-    .then(response => response.json())   
+    .then(response => {
+        if(!response.ok){
+            throw new Error("HTTP error" + response.status)
+        }
+        return response.json();
+
+    })   
     .then(data => {
+        if (data === null){
+            throw new Error("Word not found")
+        }
         const html = ` 
             <div class="def">
                 <h4>${searchWord}</h4>
@@ -51,7 +60,7 @@ button.addEventListener('click', (event) => {
         //event listener for the text to speech button
         const audio = document.getElementById('sound');
 
-        audio.addEventListener("click", () =>{
+        audio.addEventListener("click", () => {
             let audioLink = data[0].phonetics[0].audio;
 
             if (audioLink){
@@ -62,12 +71,11 @@ button.addEventListener('click', (event) => {
             }
         });
         
-        saveWordDisplay();
-        
+        saveWordDisplay();      
         
     })
-    .catch(error => 
-        {console.error("Word not Found!",error);
+    .catch(error => {        
+        showError(error.message);  
     });
 });
 
